@@ -226,7 +226,7 @@ CREATE TABLE `maintenance` (
     PRIMARY KEY (`maintenance_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='メンテナンス';
 
--- 2026/05/20 add
+-- 2026.05.20 add
 CREATE TABLE `book_chapter` (
     `book_chapter_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ブックチャプターID',
     `book_id` BIGINT NOT NULL COMMENT 'ブックID',
@@ -243,7 +243,7 @@ CREATE TABLE `book_chapter` (
     CONSTRAINT `BOOK_CHAPTER_FK_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`book_id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ブックチャプター';
 
--- 2026/05/27 add
+-- 2026.05.27 add
 CREATE TABLE `book_guide` (
     `book_guide_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ブックガイドID',
     `book_id` BIGINT NOT NULL COMMENT 'ブックID',
@@ -258,5 +258,22 @@ CREATE TABLE `book_guide` (
     `ver` INT NOT NULL DEFAULT '0' COMMENT 'バージョン',
     PRIMARY KEY (`book_guide_id`),
     KEY `BOOK_GUIDE_IDX_1` (`book_id`),
-CONSTRAINT `BOOK_GUIDE_FK_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`book_id`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `BOOK_GUIDE_FK_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`book_id`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ブックガイド';
+
+-- 2026.09.12 add
+CREATE TABLE `book_store` (
+    `book_store_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ブックストアID',
+    `book_id` BIGINT NOT NULL COMMENT 'ブックID',
+    `amazon_url` TEXT DEFAULT NULL COMMENT 'AmazonURL',
+    `rakuten_url` TEXT DEFAULT NULL COMMENT 'RakutenURL',
+    `kindle_url` TEXT DEFAULT NULL COMMENT 'KindleURL',
+    `created_at` DATETIME NOT NULL COMMENT '作成日時',
+    `updated_at` DATETIME DEFAULT NULL COMMENT '更新日時',
+    `deleted_at` DATETIME DEFAULT NULL COMMENT '削除日時',
+    `created_id` VARCHAR(30) DEFAULT NULL COMMENT '作成者ID',
+    `ver` INT NOT NULL DEFAULT '0' COMMENT 'バージョン',
+    PRIMARY KEY (`book_store_id`),
+    KEY `BOOK_STORE_IDX_1` (`book_id`),
+    CONSTRAINT `BOOK_STORE_FK_1` FOREIGN KEY (`book_id`) REFERENCES `book` (`book_id`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='ブックストア';
