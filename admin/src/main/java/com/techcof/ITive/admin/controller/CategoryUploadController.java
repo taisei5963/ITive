@@ -32,15 +32,6 @@ public class CategoryUploadController {
      */
     @RequestMapping({"", "/", "index"})
     public String index() {
-        return getTemplatePath();
-    }
-
-    /**
-     * テンプレートパスを返却する
-     *
-     * @return テンプレートパス
-     */
-    private String getTemplatePath() {
         return "categoryUpload/index";
     }
 

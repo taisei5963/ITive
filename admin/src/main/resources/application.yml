@@ -67,6 +67,9 @@ admin-config:
     bookGuide:
       encode: utf8
       temp-file-name: /Users/taiseikato/Projects/ITive/csv/upload/upload_bookGuide_{0}_{1}.csv
+    bookStore:
+      encode: utf8
+      temp-file-name: /Users/taiseikato/Projects/ITive/csv/upload/upload_bookStore_{0}_{1}.csv
     category:
       encode: utf8
       temp-file-name: /Users/taiseikato/Projects/ITive/csv/upload/upload_category_{0}_{1}.csv

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" th:with="title='ブックストアCSVアップロード'">
+<head th:replace="~{_common/head::head}"></head>
+<body>
+<div th:replace="~{_common/sidebar::sidebar}"></div>
+
+<div class="main-content">
+    <main class="container">
+        <h1 id="pageName" class="u-fs-2 u-fw-700"></h1>
+        <div class="search-cond u-mb16">
+            <div th:replace="~{_common/upload::messages}"></div>
+        </div>
+        <div class="upload-card u-mb32">
+            <form id="mainForm" th:action="@{/bookStoreUpload/upload}" enctype="multipart/form-data" method="post">
+                <div class="upload-form-area">
+                    <div th:replace="~{_common/upload::upload(accept='.csv')}"></div>
+                </div>
+            </form>
+            <div class="upload-guide-area">
+                <a th:href="@{/sample/bookStore.csv}"
+                    download="bookStore.csv"
+                    class="sample-download-link ignoreLock">
+                    サンプルCSVをダウンロード
+                </a>
+            </div>
+            <div class="upload-error-area">
+                <div th:replace="~{_common/upload::errors}"></div>
+            </div>
+        </div>
+    </main>
+</div>
+<script th:replace="~{_common/script::csrfHeader}"></script>
+<script th:replace="~{_common/script::uploadCsvFile}"></script>
+<script th:replace="~{_common/script::setPageTitle}"></script>
+<div th:replace="~{_common/script::asyncDownloadCsvFile}"></div>
+<div th:replace="~{_common/footer::footer}"></div>
+</body>
+</html>

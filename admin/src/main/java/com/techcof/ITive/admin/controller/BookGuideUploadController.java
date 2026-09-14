@@ -33,10 +33,6 @@ public class BookGuideUploadController {
      */
     @RequestMapping({"", "/", "index"})
     public String index() {
-        return getTemplatePath();
-    }
-
-    private String getTemplatePath() {
         return "bookGuideUpload/index";
     }
 

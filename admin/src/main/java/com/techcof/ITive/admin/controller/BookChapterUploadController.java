@@ -27,21 +27,12 @@ public class BookChapterUploadController {
     private AdminDto adminDto;
 
     /**
-     * ブックCSVアップロード
+     * ブックチャプターCSVアップロード
      *
      * @return テンプレートパス
      */
     @RequestMapping({"", "/", "index"})
     public String index() {
-        return getTemplatePath();
-    }
-
-    /**
-     * テンプレートパスを返却する
-     *
-     * @return テンプレートパス
-     */
-    private String getTemplatePath() {
         return "bookChapterUpload/index";
     }
 

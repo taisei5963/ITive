@@ -34,6 +34,9 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * ブックガイドCSVアップロードジョブ
+ */
 @AllArgsConstructor
 @Component
 public class UploadBookGuideCsvJob implements UploadCsvJob<BookGuideCsv> {
@@ -89,8 +92,8 @@ public class UploadBookGuideCsvJob implements UploadCsvJob<BookGuideCsv> {
      * {@inheritDoc}
      */
     @Override
-    public List<String> extraValidation(List<BookGuideCsv> csvList, List<Path> imgFiles,
-                                        SseEmitter emitter, Account account) {
+    public List<String> extraValidation(List<BookGuideCsv> csvList, SseEmitter emitter,
+                                        Account account) {
         List<String> errors = new ArrayList<>();
 
         Iterator<BookGuideCsv> ite = csvList.iterator();

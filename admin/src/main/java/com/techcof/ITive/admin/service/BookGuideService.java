@@ -37,6 +37,13 @@ public class BookGuideService {
     /** メッセージサービス */
     private MessageService messageService;
 
+    /**
+     * ブックガイドCSVを登録する
+     *
+     * @param csvDto    CSV DTO
+     * @param emitter   SSEエミッター
+     * @param createdId 担当者ID
+     */
     @Transactional
     public void saveCsv(CsvDto<BookGuideCsv> csvDto, SseEmitter emitter, String createdId) {
         for (BookGuideCsv csv : csvDto.getRows()) {
