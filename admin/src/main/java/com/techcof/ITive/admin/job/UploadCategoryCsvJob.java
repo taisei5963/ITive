@@ -24,8 +24,8 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +33,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * カテゴリCSVアップロードジョブ
@@ -82,12 +81,9 @@ public class UploadCategoryCsvJob implements UploadCsvJob<CategoryCsv> {
      * {@inheritDoc}
      */
     @Override
-    public void execImport(CsvDto<CategoryCsv> csvDto, TempFileDto tempFileDto,
-                           SseEmitter emitter,
+    public void execImport(CsvDto<CategoryCsv> csvDto, TempFileDto tempFileDto, SseEmitter emitter,
                            Account account) {
-        Map<String, Path> fileMap = tempFileDto.getTmpImages().stream()
-                .collect(Collectors.toMap(p -> p.getFileName().toString(), p -> p));
-        categoryService.saveCsv(csvDto, fileMap, emitter, account.code);
+        categoryService.saveCsv(csvDto, emitter, account.code);
     }
 
     /**
@@ -148,7 +144,8 @@ public class UploadCategoryCsvJob implements UploadCsvJob<CategoryCsv> {
                 errorPayload.put("result", "ERROR");
                 errorPayload.put("message", "CSV validation errors occurred.");
                 errorPayload.put("errorMessages", errors);
-                UploadCsvService.sendEmitterProgressResponse(emitter, mapper.writeValueAsString(errorPayload));
+                UploadCsvService.sendEmitterProgressResponse(emitter,
+                        mapper.writeValueAsString(errorPayload));
             } catch (Exception e) {
                 System.err.println("Error sending validation errors via SSE: " + e.getMessage());
             }
