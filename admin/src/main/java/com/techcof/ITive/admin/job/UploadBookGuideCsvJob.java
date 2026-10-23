@@ -19,6 +19,7 @@ import com.techcof.ITive.common.model.BookGuideModel;
 import com.techcof.ITive.common.model.BookModel;
 import com.techcof.ITive.common.service.MessageService;
 import com.techcof.ITive.common.service.UploadCsvService;
+import com.techcof.ITive.common.util.Strings;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -95,6 +96,7 @@ public class UploadBookGuideCsvJob implements UploadCsvJob<BookGuideCsv> {
     public List<String> extraValidation(List<BookGuideCsv> csvList, SseEmitter emitter,
                                         Account account) {
         List<String> errors = new ArrayList<>();
+        Pattern nextRecommendedPattern = Pattern.compile(SystemRegex.NEXT_RECOMMENDED_REGEX);
 
         Iterator<BookGuideCsv> ite = csvList.iterator();
         int count = 0;
@@ -126,6 +128,26 @@ public class UploadBookGuideCsvJob implements UploadCsvJob<BookGuideCsv> {
                 if (Objects.isNull(bookGuideModel)) {
                     errors.add(messageService.getMessage("csv.error.bookGuide.notExists",
                             csv.getRowNum().toString(), csv.getJanCode()));
+                    hasError = true;
+                }
+            }
+
+            if (!Strings.isEmpty(csv.getNextRecommended())) {
+                String[] nextRecommends = csv.getNextRecommended().split("[\\n,・]+");
+                boolean isFormatValid = true;
+                for (String recommended : nextRecommends) {
+                    String target = recommended.trim();
+                    if (Strings.isEmpty(target)) {
+                        continue;
+                    }
+                    if (!nextRecommendedPattern.matcher(target).matches()) {
+                        isFormatValid = false;
+                        break;
+                    }
+                }
+                if (!isFormatValid) {
+                    errors.add(messageService.getMessage("csv.error.bookGuide.nextRecommended.pattern",
+                            csv.getRowNum().toString()));
                     hasError = true;
                 }
             }
