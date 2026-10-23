@@ -47,7 +47,6 @@ public class BookGuideCsv implements CsvRow {
     @CsvColumn(label = "次のおすすめ", number = 6)
     @CsvRequire(considerBlank = true, cases = BuildCase.Read)
     @CsvLengthMax(value = 1000, cases = BuildCase.Read)
-    @CsvPattern(regex = SystemRegex.NEXT_RECOMMENDED_REGEX, message = "{csv.nextRecommended.pattern}", cases = BuildCase.Read)
     private String nextRecommended;
 
     @CsvColumn(label = "登録日時", number = 7)
