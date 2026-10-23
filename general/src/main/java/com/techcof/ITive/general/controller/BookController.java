@@ -7,11 +7,13 @@ import com.techcof.ITive.common.dto.SearchResult;
 import com.techcof.ITive.common.model.BookChapterModel;
 import com.techcof.ITive.common.model.BookGuideModel;
 import com.techcof.ITive.common.model.BookModel;
+import com.techcof.ITive.common.model.BookStoreModel;
 import com.techcof.ITive.common.service.MessageService;
 import com.techcof.ITive.general.request.BookSearchForm;
 import com.techcof.ITive.general.service.BookChapterService;
 import com.techcof.ITive.general.service.BookGuideService;
 import com.techcof.ITive.general.service.BookService;
+import com.techcof.ITive.general.service.BookStoreService;
 import com.techcof.ITive.general.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +43,8 @@ public class BookController {
     private BookChapterService bookChapterService;
     /** ブックガイドサービス */
     private BookGuideService bookGuideService;
+    /** ブックストアサービス */
+    private BookStoreService bookStoreService;
     /** メッセージサービス */
     private MessageService messageService;
 
@@ -87,7 +91,6 @@ public class BookController {
     @RequestMapping("/detail/{bookId}")
     public String detail(@PathVariable Long bookId, Model model,
                          RedirectAttributes redirectAttributes) {
-        // INFO: ブック情報取得
         Optional<BookModel> bookOpt = bookService.selectById(bookId);
         if (bookOpt.isEmpty()) {
             redirectAttributes.addFlashAttribute("errors", Collections.singletonList(
@@ -95,13 +98,13 @@ public class BookController {
             return "redirect:/book/search";
         }
 
-        // INFO: ブックチャプター情報取得
         List<BookChapterModel> bookChapters = bookChapterService.selectByBookId(bookId);
 
-        // INFO: ブックガイド情報取得
         Optional<BookGuideModel> bookGuideOpt = bookGuideService.selectByBookId(bookId);
         List<NextRecommendedBookDto> nextRecommendedBooks =
                 bookGuideService.getNextRecommendedBooks(bookId);
+
+        Optional<BookStoreModel> bookStoreOpt = bookStoreService.selectByBookId(bookId);
 
         List<IdAndName> categories = categoryService.selectIdAndNames();
         Map<Long, String> categoryMap = categoryService.getCategoryNameMap(categories);
@@ -110,6 +113,7 @@ public class BookController {
         model.addAttribute("categoryMap", categoryMap);
         model.addAttribute("bookChapters", bookChapters);
         model.addAttribute("bookGuide", bookGuideOpt);
+        model.addAttribute("bookStore", bookStoreOpt);
         model.addAttribute("nextRecommendedBooks", nextRecommendedBooks);
         return "book/detail";
     }

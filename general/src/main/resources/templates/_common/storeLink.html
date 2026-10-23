@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="storeLinks(bookStore)" class="book-store-links-container" th:if="${bookStore != null and bookStore.isPresent()}">
+        <div class="book-store-buttons">
+            <a th:if="${bookStore.get().amazonUrl != null and !#strings.isEmpty(bookStore.get().amazonUrl)}"
+                th:href="${bookStore.get().amazonUrl}" target="_blank" rel="noopener noreferrer" class="btn-store btn-amazon">
+                Amazon
+            </a>
+            <a th:if="${bookStore.get().rakutenUrl != null and !#strings.isEmpty(bookStore.get().rakutenUrl)}"
+                th:href="${bookStore.get().rakutenUrl}" target="_blank" rel="noopener noreferrer" class="btn-store btn-rakuten">
+                楽天ブックス
+            </a>
+            <a th:if="${bookStore.get().kindleUrl != null and !#strings.isEmpty(bookStore.get().kindleUrl)}"
+                th:href="${bookStore.get().kindleUrl}" target="_blank" rel="noopener noreferrer" class="btn-store btn-kindle">
+                Kindle
+            </a>
+        </div>
+    </div>
+</body>
+</html>

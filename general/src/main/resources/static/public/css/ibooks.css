@@ -1513,3 +1513,49 @@ body * {
 .fade:not(.show) {
   opacity: 0;
 }
+
+/* ========================================================
+  ブックストアリンク
+======================================================== */
+.book-store-links-container {
+  margin-top: 20px;
+}
+.book-store-section {
+  background-color: #ffffff;
+  width: 100%;
+}
+.book-content > .book-store-links-container > .book-store-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.book-store-section > .book-store-links-container > .book-store-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly !important;
+  padding: 8px 0 !important;
+  gap: 0 !important;
+}
+.btn-store {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: opacity 0.2s;
+}
+.btn-store:hover {
+  opacity: 0.8;
+  color: #fff;
+}
+.btn-amazon { 
+  background-color: #ff9900;
+}
+.btn-rakuten {
+  background-color: #bf0000;
+}
+.btn-kindle  {
+  background-color: #232f3e;
+}

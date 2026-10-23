@@ -70,6 +70,7 @@
                                 </span>
                             </th:block>
                         </h5>
+                        <div th:replace="~{_common/storeLink :: storeLinks(${bookStore})}"></div>
                     </div>
                 </div>
             </main>
@@ -143,6 +144,9 @@
                         </tbody>
                     </table>
                 </div>
+            </section>
+            <section class="book-store-section">
+                <div th:replace="~{_common/storeLink :: storeLinks(${bookStore})}"></div>
             </section>
             <div th:replace="~{_common/footer::footer}"></div>
         </div>

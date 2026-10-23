@@ -27,5 +27,5 @@ public class SystemRegex {
     /** 次に読むべき書籍に対する正規表現 */
     public static final String NEXT_RECOMMENDED_REGEX = "^([^\\\\(\\\\)（）]+)[\\\\(（]([^\\\\(\\\\)（）]+)[\\\\)）]$";
     /** URLに対する正規表現 */
-    public static final String STORE_URL_REGEX = "^(https?://[a-zA-Z0-9.\\\\-_~:/?#\\\\[\\\\]@!$&'()*+,;=%]+)?$";
+    public static final String STORE_URL_REGEX = "^(https?://[-a-zA-Z0-9._~:/?#\\\\[\\\\]@!$&'()*+,;=%]+)?$";
 }
