@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,13 +50,11 @@ public class CategoryService {
      * ブックCSVを登録する
      *
      * @param csvDto    CSV DTO
-     * @param fileMap   画像ファイルマップ
      * @param emitter   Sseエミッター
      * @param createdId 担当者ID
      */
     @Transactional
-    public void saveCsv(CsvDto<CategoryCsv> csvDto, Map<String, Path> fileMap, SseEmitter emitter,
-                        String createdId) {
+    public void saveCsv(CsvDto<CategoryCsv> csvDto, SseEmitter emitter, String createdId) {
         for (CategoryCsv csv : csvDto.getRows()) {
             try {
                 categoryRepository.store(csv.toModel(), createdId);
